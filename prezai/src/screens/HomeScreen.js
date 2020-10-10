@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 80,
     fontWeight: 500,
     color: '#3563DB',
-    paddingTop: '6%',
+    paddingTop: '3%',
   },
   subtitle: {
     color: '#626262',
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     height: '57%',
     backgroundColor: 'rgba(53,99,219, 0.1)',
     margin: 'auto',
-    marginTop: '2%',
+    marginTop: '3%',
     paddingTop: '2%',
     borderRadius: '5%',
   },
