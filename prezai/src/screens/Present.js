@@ -14,9 +14,9 @@ class Present extends Component {
        mic_color:"#3563DB",
        doc_color:"#C4C4C4",
        cam_color:"#C4C4C4",
-       mic_size:124,
-       doc_size:124,
-       cam_size:124,
+       mic_size:94,
+       doc_size:94,
+       cam_size:94,
        text_value:"",
        files:[],
        
@@ -57,30 +57,30 @@ class Present extends Component {
     }
 
     MicSize(event){
-      this.setState({mic_size:134});
-      this.setState({cam_size:124});
-      this.setState({doc_size:124});
+      this.setState({mic_size:104});
+      this.setState({cam_size:94});
+      this.setState({doc_size:94});
       
     }
 
     CamSize(event){
-      this.setState({mic_size:124});
-      this.setState({cam_size:134});
-      this.setState({doc_size:124});
+      this.setState({mic_size:94});
+      this.setState({cam_size:104});
+      this.setState({doc_size:94});
       
     }
 
     DocSize(event){
-      this.setState({mic_size:124});
-      this.setState({cam_size:124});
-      this.setState({doc_size:134});
+      this.setState({mic_size:94});
+      this.setState({cam_size:94});
+      this.setState({doc_size:104});
       
     }
 
     ResetSize(event){
-      this.setState({mic_size:124});
-      this.setState({cam_size:124});
-      this.setState({doc_size:124});
+      this.setState({mic_size:94});
+      this.setState({cam_size:94});
+      this.setState({doc_size:94});
       
     }
 
