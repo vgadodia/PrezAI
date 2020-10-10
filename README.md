@@ -1,1 +1,3 @@
 # PrezAI
+
+Create presentations efficiently.
