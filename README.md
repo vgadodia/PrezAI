@@ -1,3 +1,2 @@
 # PrezAI
-
-Create presentations efficiently.
+automatic presentation generation.
