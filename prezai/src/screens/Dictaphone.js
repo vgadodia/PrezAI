@@ -13,9 +13,9 @@ const Dictaphone = () => {
   SpeechRecognition.startListening({ continuous: true });
 
   
-  const main = (keyword) => {
-    var sentence = finalTranscript.slice(0, finalTranscript.indexOf(keyword))
-    finalTranscript = finalTranscript.slice(finalTranscript.indexOf(keyword) + keyword.length, finalTranscript.length)
+  const main = async (keyword) => {
+    var sentence = await finalTranscript.slice(0, finalTranscript.indexOf(keyword))
+    finalTranscript = await finalTranscript.slice(finalTranscript.indexOf(keyword) + keyword.length, finalTranscript.length)
     sentenceNumber++;
     console.log("sentence:" + sentence, sentenceNumber)
     console.log("final transcript: "+ finalTranscript)
