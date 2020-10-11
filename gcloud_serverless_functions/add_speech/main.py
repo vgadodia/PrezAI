@@ -1,6 +1,3 @@
-## API KEY - AIzaSyBIzxU32xYTPmkcVA-UlEcT0QQZuLe_Cyc
-
-## TEXT SUMMARIZATION
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -161,8 +158,6 @@ def remove_stopwords_image(k):
     return final
 
 SCOPES = ['https://www.googleapis.com/auth/presentations']
-presentation_id = '1lU8du20fM-88-r865705F674KL4CS1ibWcom8Ql0NGQ'
-
 subscription_key = "670712e42f1940fd84207363f6ca988f"
 search_url = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
 headers = {"Ocp-Apim-Subscription-Key" : subscription_key}
@@ -173,8 +168,6 @@ def get_image(search_term):
     response.raise_for_status()
     search_results = response.json()
     thumbnail_urls = [img["thumbnailUrl"] for img in search_results["value"][:1]]
-
-    ## FINAL URL OF IMAGE
     try:
         imageURL = thumbnail_urls[0]
         return imageURL
@@ -186,17 +179,6 @@ creds = None
 if os.path.exists('token.pickle'):
     with open('token.pickle', 'rb') as token:
         creds = pickle.load(token)
-
-# if not creds or not creds.valid:
-#     if creds and creds.expired and creds.refresh_token:
-#         creds.refresh(Request())
-#     else:
-#         flow = InstalledAppFlow.from_client_secrets_file(
-#             'credentials.json', SCOPES)
-#         creds = flow.run_local_server(port=0)
-#     with open('token.pickle', 'wb') as token:
-#         pickle.dump(creds, token)
-
 
 slides_service = build('slides', 'v1', credentials=creds)
 
@@ -320,10 +302,6 @@ def insert_point(presentation_id, text, n):
         body = {'requests': requests}
         response = slides_service.presentations().batchUpdate(presentationId=presentation_id, body=body).execute()
 
-
-  
-example_sent = "Delhi is the capital of India."
-
 def remove_stop_words(k):
     final = ""
 
@@ -352,9 +330,28 @@ def main(sentence, id, n):
 
     return {"status":"success"}
 
-import time
-start = time.time()
-print(main(example_sent, presentation_id, 1))
-end = time.time()
+def hello_world(request):
+    
+    request_json = request.get_json()
+    
+    if request.method == 'OPTIONS':
+        headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST',
+            'Content-Type':'application/json',
+            'Access-Control-Allow-Headers': 'Content-Type'
+        }
+        return ('', 204, headers)
+    
+    headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Content-Type':'application/json'
+    }
 
-print(end - start)
+    
+
+    try:
+        return (main(request_json["text"], request_json["id"], request_json["num"]), 200, headers)
+    except:
+        return ({"status":"failed"}, 200, headers)

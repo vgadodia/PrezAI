@@ -1,6 +1,4 @@
 import requests
-from PIL import Image
-from io import BytesIO
 
 subscription_key = "670712e42f1940fd84207363f6ca988f"
 search_url = "https://api.cognitive.microsoft.com/bing/v7.0/images/search"
