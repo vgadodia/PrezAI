@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
-var sentenceNumber = 0
+var sentenceNumber = 1;
+var prev = 0;
 
 const Dictaphone = () => {
   var { transcript, finalTranscript, resetTranscript } = useSpeechRecognition()
@@ -13,17 +14,41 @@ const Dictaphone = () => {
   SpeechRecognition.startListening({ continuous: true });
 
   
-  const main = async (keyword) => {
-    var sentence = await finalTranscript.slice(0, finalTranscript.indexOf(keyword))
-    finalTranscript = await finalTranscript.slice(finalTranscript.indexOf(keyword) + keyword.length, finalTranscript.length)
-    sentenceNumber++;
-    console.log("sentence:" + sentence, sentenceNumber)
-    console.log("final transcript: "+ finalTranscript)
-    sentence = ""
+  function main(k){
+    var final = [];
+    var x = "";
+
+    var kk = k.split(" ");
+    
+    for (var i = 0; i < k.split(" ").length; i++){
+      
+      if (kk[i] == "firstly" || kk[i] == "secondly" || kk[i] == "thirdly" || kk[i] == "lastly" || kk[i] == "finally" || kk[i] == "then" || kk[i] == "next"){
+        
+        final.push(x);
+        x = "";
+      }
+      else{
+        
+        x += kk[i] + " ";
+      }
+    }
+    if (x != ""){
+      final.push(x);
+    }
+    
+    if (final.length == 0){
+      final.push(k);
+    }
+    return final;
   }
 
-  if (finalTranscript.includes("next up")){
-    main("next up")
+  if (finalTranscript.length > prev){
+    var xx = main(finalTranscript);
+    if (xx.length > sentenceNumber){
+      console.log(xx[sentenceNumber]);
+      sentenceNumber ++;
+    }
+    prev = finalTranscript.length;
   }
 
   return (
