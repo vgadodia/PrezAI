@@ -26,9 +26,6 @@ const Dictaphone = () => {
     main("next up")
   }
 
-  
-
-
   return (
     <div>
       
