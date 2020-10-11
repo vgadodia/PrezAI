@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import VeerNavbar from "../components/VeerNavbar"
 import SvgComponent from "./SvgComponent"
 import SvgComponent2 from "./SvgComponent2"
+import SvgComponent4 from "./SvgComponent3"
+import SvgComponent3 from "./SvgComponent4"
 
 import { 
   makeStyles, 
@@ -128,7 +130,7 @@ function Home() {
           </Toolbar>
           <Toolbar className={classes.infoContainerBox}>
             <Box className={classes.infoComponentBox2}>
-              <SvgComponent2 className={classes.svgMoveRight}/>
+              <SvgComponent4 className={classes.svgMoveRight}/>
             </Box>
             <Box className={classes.infoComponentBox}>
               <Box className={classes.infoTitle}>What makes PrezAI better?</Box>
@@ -142,7 +144,7 @@ function Home() {
               <Box className={classes.infoText}>We aim to make this software free of costs, making it a viable choice for everyone. We are also looking to add many more features in the future.</Box>
             </Box>
             <Box className={classes.infoComponentBox2}>
-              <SvgComponent2 className={classes.svgMoveLeft}/>
+              <SvgComponent3 className={classes.svgMoveLeft}/>
             </Box>
           </Toolbar>
       </Box>

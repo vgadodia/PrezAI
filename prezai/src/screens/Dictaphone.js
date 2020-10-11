@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
-var sentenceNumber = 1;
+var sentenceNumber = 0;
 var prev = 0;
 
 const Dictaphone = () => {
@@ -39,13 +39,23 @@ const Dictaphone = () => {
     if (final.length == 0){
       final.push(k);
     }
+    if (final[0] == ""){
+      final.slice(1, final.length);
+    }
     return final;
   }
 
   if (finalTranscript.length > prev){
     var xx = main(finalTranscript);
+    
     if (xx.length > sentenceNumber){
-      console.log(xx[sentenceNumber]);
+     
+      fetch('https://us-central1-todo-app-291703.cloudfunctions.net/audio', {
+            method: 'post',headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+            body: JSON.stringify({id: window.sessionStorage.getItem("id"), text: xx[sentenceNumber], num: sentenceNumber + 1})}).then((Response) => Response.json()).then((Result) => {
+              console.log(Result);
+
+            })
       sentenceNumber ++;
     }
     prev = finalTranscript.length;

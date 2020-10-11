@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#3563DB',
   },
   menuElements: {
-    marginRight: '15%',
+    marginRight: '5%',
     width: '20%',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -90,13 +90,7 @@ export default function VeerNavbar(props) {
             <Toolbar className={classes.menuElements}>
               <Link to = '/' style = {{textDecoration:'none', color:'#FFFFFF'}}><Button color="inherit" className={classes.homeElement}>Home</Button></Link>
               <Link to = '/generate' style = {{textDecoration:'none', color:'#FFFFFF'}}><Button color="inherit" className={classes.generateElement}>Generate</Button></Link>
-              <Switch
-                checked={state.checkedB}
-                onChange={handleChange}
-                color="white"
-                name="checkedB"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-              />
+              
             </Toolbar>
           </Toolbar>
         </AppBar>

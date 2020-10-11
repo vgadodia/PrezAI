@@ -9,7 +9,8 @@ class Present extends Component {
     constructor(props) {
       super(props);
       this.state = {
-       title:"Nand's Presentation",
+       title:window.sessionStorage.getItem("title"),
+       id: window.sessionStorage.getItem("id"),
        choice:0,
        mic_color:"#3563DB",
        doc_color:"#C4C4C4",
@@ -19,6 +20,7 @@ class Present extends Component {
        cam_size:94,
        text_value:"",
        files:[],
+       error:"",
        
       };
 
@@ -89,7 +91,18 @@ class Present extends Component {
     }
 
     sendText(){
-      console.log(this.state.text_value);
+      
+      fetch('https://us-central1-todo-app-291703.cloudfunctions.net/text', {
+            method: 'post',headers: {'Accept': 'application/json','Content-Type': 'application/json'},
+            body: JSON.stringify({id: this.state.id, text: this.state.text_value})}).then((Response) => Response.json()).then((Result) => {
+              if (Result.status == "success"){
+                this.setState({error: "Successfully added text."})
+              }
+              else{
+                this.setState({error:"Request failed."});
+              }
+
+            })
     }
 
     getFiles(files){
@@ -109,7 +122,7 @@ class Present extends Component {
       .then((Result) => {
         
         if (Result.status != 400){
-        console.log(Result.responses[0].fullTextAnnotation.text);
+       
         this.setState({mic_color:"#C4C4C4"});
         this.setState({doc_color:"#3563DB"});
         this.setState({cam_color:"#C4C4C4"});
@@ -121,7 +134,11 @@ class Present extends Component {
     }
 
     render() {
-        
+
+      if (this.state.title == "null"){
+        this.props.history.push("/generate");
+        return null;
+      }
           return (
             
            <div style={{backgroundColor:'#fff', height:'100vh'}}>
@@ -153,7 +170,10 @@ class Present extends Component {
             <textarea value = {this.state.text_value} onChange = {this.handleTextChange} placeholder= "Enter text to summarize and add." style = {{color:"#626262", resize: 'none', outlineWidth: 0, padding: "4vh", borderWidth: 2, borderColor:"#CACACA", width: "70vh", height: "30vh", fontSize: "200%", fontFamily:"Roboto"}}></textarea>
             <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <button onClick = {this.sendText} style = {{display: "flex", justifyContent: "center", alignItems: "center",backgroundColor:"#3563DB", borderWidth:0, color:"#FFF", fontFamily:"Roboto", fontWeight:"400", fontSize:"170%", padding:"3%", marginTop: "5%", width: "30vh", borderRadius:"1vh"}}>ADD</button>
+            
             </div>
+            <div style = {{display: "flex", justifyContent: "center", alignItems: "center", color: "#626262", fontFamily:"Roboto", fontSize:"16pt", marginTop:"5%"}}>{this.state.error}</div>
+
             </div>}
 
            {this.state.choice == 2 && 
