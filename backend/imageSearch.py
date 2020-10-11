@@ -1,5 +1,4 @@
 import requests
-import matplotlib.pyplot as plt
 from PIL import Image
 from io import BytesIO
 
@@ -15,9 +14,12 @@ def main(search_term):
     thumbnail_urls = [img["thumbnailUrl"] for img in search_results["value"][:1]]
 
     ## FINAL URL OF IMAGE
-    imageURL = thumbnail_urls[0]
-    print(imageURL)
+    try:
+        imageURL = thumbnail_urls[0]
+        print(imageURL)
+    except:
+        print("Unable to retrieve any images.s")
 
 
-sent = "Artificial intelligence (AI), ability digital computer or computer-controlled robot"
+sent = "artificial intelligence ai ability digital computer"
 main(sent)
