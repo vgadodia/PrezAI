@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
+var sentenceNumber = 0
 
 const Dictaphone = () => {
-  const { transcript, finalTranscript, resetTranscript } = useSpeechRecognition()
+  var { transcript, finalTranscript, resetTranscript } = useSpeechRecognition()
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null
@@ -11,14 +12,22 @@ const Dictaphone = () => {
 
   SpeechRecognition.startListening({ continuous: true });
 
-  const defaultOptions = {
-    loop: true,
-    autoplay: true, 
-    
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
+  
+  const main = (keyword) => {
+    var sentence = finalTranscript.slice(0, finalTranscript.indexOf(keyword))
+    finalTranscript = finalTranscript.slice(finalTranscript.indexOf(keyword) + keyword.length, finalTranscript.length)
+    sentenceNumber++;
+    console.log("sentence:" + sentence, sentenceNumber)
+    console.log("final transcript: "+ finalTranscript)
+    sentence = ""
+  }
+
+  if (finalTranscript.includes("next up")){
+    main("next up")
+  }
+
+  
+
 
   return (
     <div>
